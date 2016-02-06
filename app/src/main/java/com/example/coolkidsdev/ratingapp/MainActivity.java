@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
     public static MenuItem c;
 
     public static Context context;
+
     public String badRatings[] = {
             "Please Provide A Rating",
             "Come on, it takes 2 seconds",
@@ -87,39 +88,6 @@ public class MainActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         super.onCreateContextMenu(menu, v, menuInfo);
-        //  a = (MenuItem) findViewById(R.id.id_Teacher1);
-        // b = (MenuItem) findViewById(R.id.id_Teacher2);
-        // c = (MenuItem) findViewById(R.id.id_Teacher3);
-//        try {
-//            URL u = new URL("http://feedback.jointheleague.org/getTeachers.php");
-//            URLConnection connection = u.openConnection();
-//            connection.setConnectTimeout(5000);
-//            connection.setReadTimeout(5000);
-//            connection.connect();
-//
-//            // Read and store the result line by line then return the entire string.
-//            InputStream in = connection.getInputStream();
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-//            StringBuilder html = new StringBuilder();
-//            for (int i = 0; i < 3; i++) {
-//                String s = reader.readLine();
-//                if (i == 0) {
-//                    a.setTitle(s);
-//                }
-//                if (i == 1) {
-//                    b.setTitle(s);
-//                }
-//                if (i == 2) {
-//                    c.setTitle(s);
-//                }
-//            }
-//            in.close();
-//        }catch (IOException e){
-//            Log.v("WPW", e.toString());
-//        }
-//        a.setTitle("June");
-//        b.setTitle("Site");
-//        c.setTitle("Dave");
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.teacher_menu, menu);
     }
@@ -128,29 +96,12 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
-        switch (item.getItemId()){
 
-            case R.id.id_Teacher1:
-                // teacherSelected = a.getTitle() + "";
-                teacherSelected = "Site";
-                RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
-                item.setChecked(true);
-
-            case R.id.id_Teacher2:
-                //teacherSelected = b.getTitle() + "";
-                teacherSelected = "June";
-                RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
-                item.setChecked(true);
-
-            case R.id.id_Teacher3:
-                teacherSelected = "Dave";
-                //teacherSelected = c.getTitle() + "";
-                RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
-                item.setChecked(true);
-                return true;
-
-        }
+        teacherSelected = item.getTitle().toString();
+        RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
+        item.setChecked(true);
         return true;
+
     }
 
     public void submitRating(View v){
