@@ -22,6 +22,11 @@ import java.util.Map;
  */
 public class DataBaseFunctions {
 
+    public static String[] getRatings(){
+        String[] teachers = {"Site", "June", "Dave"};
+        return teachers;
+    }
+
     RequestQueue requestQueue;
 
 

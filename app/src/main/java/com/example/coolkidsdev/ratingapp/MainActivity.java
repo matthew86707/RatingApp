@@ -6,11 +6,14 @@ package com.example.coolkidsdev.ratingapp;
 
         import android.app.Activity;
 
+        import android.content.ClipData;
+        import android.content.ClipData.Item;
         import android.content.Context;
         import android.os.Bundle;
 
         import android.os.StrictMode;
 
+        import android.util.Log;
         import android.view.ContextMenu;
         import android.view.Menu;
         import android.view.MenuInflater;
@@ -19,11 +22,12 @@ package com.example.coolkidsdev.ratingapp;
         import android.widget.RatingBar;
 
 
+
         import java.io.BufferedWriter;
         import java.io.FileOutputStream;
 
         import java.io.OutputStreamWriter;
-
+        import java.util.Random;
 
 
 public class MainActivity extends Activity {
@@ -60,6 +64,10 @@ public class MainActivity extends Activity {
     RatingBar ratingFun;
     RatingBar ratingLearn;
 
+    MenuItem tA;
+    MenuItem tB;
+    MenuItem tC;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +92,28 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu (Menu menu){
+        Log.d("Called?", "Working!");
+
+
+        return super.onPrepareOptionsMenu(menu);
+
+    }
+
+
+    @Override
     public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+
         super.onCreateContextMenu(menu, v, menuInfo);
+
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.teacher_menu, menu);
+
+        String[] names = DataBaseFunctions.getRatings();
+        for(String name : names) {
+            menu.add(0, 0, 0, name);
+        }
+
     }
 
 
@@ -120,7 +144,9 @@ public class MainActivity extends Activity {
             }
 
         } else {
+
             registerForContextMenu(v);
+            invalidateOptionsMenu();
             openContextMenu(v);
 
             funSelected = ratingFun.getRating();
