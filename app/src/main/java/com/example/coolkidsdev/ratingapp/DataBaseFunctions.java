@@ -12,6 +12,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +29,15 @@ import java.util.Map;
  */
 public class DataBaseFunctions {
 
-    public static String[] getRatings(){
-        String[] teachers = {"Site", "June", "Dave"};
-        return teachers;
+    public static String[] getCurrentTeachers() throws Exception{
+        GetTeachers g = new GetTeachers();
+        Thread t = new Thread(g);
+        t.start();
+        t.join();
+      return g.getTeachersArray();
     }
+
+
 
     RequestQueue requestQueue;
 
@@ -59,6 +71,7 @@ public class DataBaseFunctions {
             }
         };
         requestQueue.add(request);
+        ToastStuff.createToast("Rating Submitted Successfully!", MainActivity.context);
     }
 
 

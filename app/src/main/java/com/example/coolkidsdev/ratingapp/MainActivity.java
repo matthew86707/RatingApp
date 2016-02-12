@@ -6,12 +6,8 @@ package com.example.coolkidsdev.ratingapp;
 
         import android.app.Activity;
 
-        import android.content.ClipData;
-        import android.content.ClipData.Item;
         import android.content.Context;
         import android.os.Bundle;
-
-        import android.os.StrictMode;
 
         import android.util.Log;
         import android.view.ContextMenu;
@@ -27,7 +23,7 @@ package com.example.coolkidsdev.ratingapp;
         import java.io.FileOutputStream;
 
         import java.io.OutputStreamWriter;
-        import java.util.Random;
+        import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends Activity {
@@ -108,8 +104,12 @@ public class MainActivity extends Activity {
 
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.teacher_menu, menu);
+        String names[] = {"Undefined Teacher Name"};
+        try {
+            names = DataBaseFunctions.getCurrentTeachers();
+        }catch (Exception e) {
 
-        String[] names = DataBaseFunctions.getRatings();
+        }
         for(String name : names) {
             menu.add(0, 0, 0, name);
         }
