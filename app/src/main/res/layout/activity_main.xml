@@ -19,17 +19,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar"
+        android:paddingTop="20dp"
+        android:layout_marginTop="47dp"
         android:layout_below="@+id/textView2"
-        android:layout_alignStart="@+id/textView"
-        android:paddingTop="20dp" />
+        android:layout_alignParentStart="true" />
 
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar2"
+        android:paddingTop="20dp"
+        android:layout_marginTop="53dp"
         android:layout_below="@+id/textView3"
-        android:layout_alignStart="@+id/ratingBar"
-        android:paddingTop="20dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,9 +40,9 @@
         android:text="How Much Did You Enjoy Your Class?"
         android:textSize="18dp"
         android:id="@+id/textView2"
+        android:layout_marginTop="104dp"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,9 +51,8 @@
         android:id="@+id/textView3"
         android:textSize="20dp"
         android:text="How Much Did You Learn?"
-        android:layout_below="@+id/ratingBar"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_marginTop="39dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -61,8 +62,8 @@
         android:textSize="32dp"
         android:onClick="submitRating"
         android:paddingTop="10dp"
-        android:layout_below="@+id/ratingBar2"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp" />
+        android:layout_marginBottom="69dp" />
 
 </RelativeLayout>

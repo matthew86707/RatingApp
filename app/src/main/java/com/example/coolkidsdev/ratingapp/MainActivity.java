@@ -15,7 +15,9 @@ package com.example.coolkidsdev.ratingapp;
         import android.view.MenuInflater;
         import android.view.MenuItem;
         import android.view.View;
+        import android.widget.Button;
         import android.widget.RatingBar;
+        import android.widget.RatingBar.OnRatingBarChangeListener;
 
 
 
@@ -31,6 +33,8 @@ public class MainActivity extends Activity {
     public static String teacherSelected = "None";
     public static float funSelected;
     public static float infoSelected;
+    public static boolean funChanged;
+    public static boolean infoChanged;
 
     public static MenuItem a;
     public static MenuItem b;
@@ -59,6 +63,7 @@ public class MainActivity extends Activity {
     //This is just for a small easter egg im putting in...
     RatingBar ratingFun;
     RatingBar ratingLearn;
+    Button button;
 
     MenuItem tA;
     MenuItem tB;
@@ -69,7 +74,43 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
+        button = (Button) findViewById(R.id.button);
+        button.setAlpha(0.2f);
+        button.setClickable(false);
+        funChanged = false;
+        infoChanged = false;
+        addListenerOnRatingBar();
+    }
 
+    public void addListenerOnRatingBar() {
+
+        ratingFun = (RatingBar) findViewById(R.id.ratingBar);
+        ratingLearn = (RatingBar) findViewById(R.id.ratingBar2);
+
+        //if rating value is changed,
+        //display the current rating value in the result (textview) automatically
+        ratingFun.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                if (infoChanged) {
+                    button.setAlpha(1f);
+                    button.setClickable(true);
+                } else {
+                    funChanged = true;
+                }
+            }
+        });
+        ratingLearn.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                if (funChanged) {
+                    button.setAlpha(1f);
+                    button.setClickable(true);
+                } else {
+                    infoChanged = true;
+                }
+            }
+        });
     }
 
     @Override
@@ -79,6 +120,7 @@ public class MainActivity extends Activity {
 
         ratingFun = (RatingBar) findViewById(R.id.ratingBar);
         ratingLearn = (RatingBar) findViewById(R.id.ratingBar2);
+
         return true;
     }
 
@@ -132,9 +174,9 @@ public class MainActivity extends Activity {
 
         ratingFun = (RatingBar) findViewById(R.id.ratingBar);
         ratingLearn = (RatingBar) findViewById(R.id.ratingBar2);
-
         if (ratingFun.getRating() == 0f || ratingLearn.getRating() == 0f) {
             //The next few lines are a secret I hid for anyone who wants to find it...
+
             badRatingNum++;
 
             if (badRatingNum > 13) {
@@ -156,6 +198,10 @@ public class MainActivity extends Activity {
 
             ratingFun.setRating(0.0f);
             ratingLearn.setRating(0.0f);
+            button.setAlpha(.2f);
+            button.setClickable(false);
+            funChanged = false;
+            infoChanged = false;
             //Show a toast with the rating information...
             badRatingNum = -1;
 
